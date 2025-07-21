@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import EmployeeTable from "@/components/table/employeeTable";
 import { fetchEmployees, updateEmployee } from "@/lib/api";
+import { Employee } from "@/types/Employee";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,13 +15,13 @@ const geistMono = Geist_Mono({
 });
 
 export default function Home() {
-  const [employees, setEmployees] = useState([]);
+  const [employees, setEmployees] = useState<Employee[]>([]);
 
   useEffect(() => {
     fetchEmployees().then(setEmployees).catch(console.error);
   }, []);
 
-  const onUpdate = async (updatedEmployee) => {
+  const onUpdate = async (updatedEmployee: Employee) => {
     const result = await updateEmployee(updatedEmployee.id, updatedEmployee);
     setEmployees((prev) => prev.map((e) => (e.id === result.id ? result : e)));
   };

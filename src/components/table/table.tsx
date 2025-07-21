@@ -7,7 +7,7 @@ type Column<T> = {
 };
 
 type TableProps<T> = {
-  columns: Column<T>[];
+  columns: ReadonlyArray<Column<T>>;
   data: T[];
 };
 
