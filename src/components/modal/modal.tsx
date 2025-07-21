@@ -16,7 +16,7 @@ export default function Modal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm">
       <div className="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
         {title && <h2 className="txt-xl font-bold mb-4">{title}</h2>}
         <div>{children}</div>

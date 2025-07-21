@@ -1,4 +1,6 @@
+import { useState } from "react";
 import Table from "./table";
+import EmployeeModal from "../modal/employeeModal";
 
 type Employee = {
   id: number;
@@ -12,6 +14,9 @@ type Props = {
 };
 
 export default function EmployeeTable({ data }: Props) {
+  const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(
+    null,
+  );
   const columns = [
     { label: "ID", accessor: "id" },
     { label: "Name", accessor: "name" },
@@ -25,10 +30,26 @@ export default function EmployeeTable({ data }: Props) {
       label: "Action",
       accessor: "id",
       render: (_: any, row: Employee) => (
-        <span className="text-blue-600 underline cursor-pointer">[Update]</span>
+        <span
+          onClick={() => setSelectedEmployee(row)}
+          className="text-blue-600 underline cursor-pointer"
+        >
+          [Update]
+        </span>
       ),
     },
   ] as const;
 
-  return <Table columns={columns} data={data} />;
+  return (
+    <>
+      <Table columns={columns} data={data} />
+      {selectedEmployee && (
+        <EmployeeModal
+          isOpen={!!selectedEmployee}
+          onClose={() => setSelectedEmployee(null)}
+          employee={selectedEmployee}
+        />
+      )}
+    </>
+  );
 }
