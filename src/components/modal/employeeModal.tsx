@@ -11,12 +11,19 @@ type EmployeeModalProps = {
     email: string;
     isActive: boolean;
   };
+  onSave: (updated: {
+    id: number;
+    name: string;
+    email: string;
+    isActive: boolean;
+  }) => void;
 };
 
 export default function EmployeeModal({
   isOpen,
   onClose,
   employee,
+  onSave,
 }: EmployeeModalProps) {
   if (!employee) return null;
 
@@ -25,7 +32,7 @@ export default function EmployeeModal({
   const [isActive, setIsActive] = useState(employee.isActive);
 
   const handleSave = () => {
-    console.log("Saving update for", {
+    onSave({
       id: employee.id,
       name,
       email,

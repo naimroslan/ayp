@@ -1,9 +1,11 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function fetchEmployees() {
-  const res = await fetch(`${API_URL}/emloyees`);
+  const res = await fetch(`${API_URL}/employees`);
   if (!res.ok) throw new Error("Failed to fetch employees");
-  return res.json;
+
+  const json = await res.json();
+  return Array.isArray(json) ? json : json.employees;
 }
 
 export async function updateEmployee(

@@ -6,14 +6,15 @@ type Employee = {
   id: number;
   name: string;
   email: string;
-  status: string;
+  isActive: boolean;
 };
 
 type Props = {
   data: Employee[];
+  onUpdate: (updated: Employee) => void;
 };
 
-export default function EmployeeTable({ data }: Props) {
+export default function EmployeeTable({ data, onUpdate }: Props) {
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(
     null,
   );
@@ -48,6 +49,10 @@ export default function EmployeeTable({ data }: Props) {
           isOpen={!!selectedEmployee}
           onClose={() => setSelectedEmployee(null)}
           employee={selectedEmployee}
+          onSave={async (updated) => {
+            await onUpdate(updated);
+            setSelectedEmployee(null);
+          }}
         />
       )}
     </>
