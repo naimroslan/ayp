@@ -16,7 +16,11 @@ export default function EmployeeTable({ data }: Props) {
     { label: "ID", accessor: "id" },
     { label: "Name", accessor: "name" },
     { label: "Email", accessor: "email" },
-    { label: "Status", accessor: "status" },
+    {
+      label: "Status",
+      accessor: "isActive",
+      render: (value: boolean) => (value ? "ACTIVE" : "DEACTIVATED"),
+    },
     {
       label: "Action",
       accessor: "id",
@@ -24,7 +28,7 @@ export default function EmployeeTable({ data }: Props) {
         <span className="text-blue-600 underline cursor-pointer">[Update]</span>
       ),
     },
-  ];
+  ] as const;
 
   return <Table columns={columns} data={data} />;
 }
